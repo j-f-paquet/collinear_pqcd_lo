@@ -293,7 +293,8 @@ double charge(int type, int parton_a, int parton_b, int parton_c, int parton_d) 
 	// Declaration of functions //
 
 	// Declaration of variables //
-	double res, quark;
+	double res;
+        int quark;
 
 	// Initialization of variables //
 	quark=0;

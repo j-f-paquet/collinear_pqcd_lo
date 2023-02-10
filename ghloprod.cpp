@@ -11,7 +11,7 @@
 #include <gsl/gsl_monte_miser.h>
 #include <gsl/gsl_monte_vegas.h>
 
-#include "LHAPDF/LHAPDF.h"
+//#include "LHAPDF/LHAPDF.h"
 
 #include "params.h"
 
@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
 	double kfrag(double);
 	double kdirect(double);
 	void save_info(ofstream *, params *);
-	double geom_factor(params *);
+	//double geom_factor(params *);
 
 	// Declaration of variables //
 	params pars;
@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
 	double nnprod,res;
 
 	// Initialization of variables //
-	strcpy(filename,"./dat/example");
+	strcpy(filename,"./example.dat");
 	strcpy(origfn,filename);
 	id=1;
 
@@ -72,8 +72,8 @@ int main(int argc, char *argv[]) {
 	//beam 2
 	//gold is 79 protons, 118 neutrons
 	//Pb is 82 protons,125 neutrons
-	pars.beam_2[0]=82;
-	pars.beam_2[1]=125;
+	pars.beam_2[0]=1;
+	pars.beam_2[1]=0;
 	
 	//general params
 	
@@ -135,17 +135,18 @@ int main(int argc, char *argv[]) {
 		outfile << "#\n#pT\tcs\n";
 
 		//
-		LHAPDF::initPDFByName(pars.pdf_name,1);
+		//LHAPDF::initPDFByName(pars.pdf_name,1);
 		
 		//
-		for(int i=10;i<=10;i++) {
+		for(int i=10;i<=20;i++) {
 
 			pars.pJt=i*.5;
 
-			//nnprod=partprod_pp(&pars);
+			nnprod=partprod_pp(&pars);
 
 			//I don't think geom_factor has to be recalculated every times
-			res=nnprod*geom_factor(&pars);
+			//res=nnprod*geom_factor(&pars);
+			res=nnprod; //*geom_factor(&pars);
 
 			//cout << partprod_pp(&pars) << "\n";
 		
@@ -526,8 +527,8 @@ double direct_prod (double xa, void * pars) {
 	double cteq5_pdf(int, int, double, double);
 	double twotwocs(void *, double, double, double, double);
 	void set_scales(double *, double *, void *);
-	double lhapdf(int,double,double);
-	double mod_pdf(int [], int, double , double);
+	//double lhapdf(int,double,double);
+	//double mod_pdf(int [], int, double , double);
 
 	// Declaration of variables //
 	params curr_set;
@@ -566,14 +567,14 @@ double direct_prod (double xa, void * pars) {
 	uh=-xb*pJt*sqrts*exp(y);
 
 	//pdfa
-	//pdfa=cteq5_pdf(curr_set.parton_a, cteq_table, xa, Qfac);
+	pdfa=cteq5_pdf(curr_set.parton_a, cteq_table, xa, Qfac);
 	//pdfa=lhapdf(curr_set.parton_a, xa, Qfac);
-	pdfa=mod_pdf(curr_set.beam_1, curr_set.parton_a, xa, Qfac);
+	//pdfa=mod_pdf(curr_set.beam_1, curr_set.parton_a, xa, Qfac);
 	
 	//pdf b
-	//pdfb=cteq5_pdf(curr_set.parton_b, cteq_table, xb, Qfac);
+	pdfb=cteq5_pdf(curr_set.parton_b, cteq_table, xb, Qfac);
 	//pdfb=lhapdf(curr_set.parton_b, xb, Qfac);
-	pdfb=mod_pdf(curr_set.beam_2, curr_set.parton_b, xb, Qfac);
+	//pdfb=mod_pdf(curr_set.beam_2, curr_set.parton_b, xb, Qfac);
 
 	//if photon
 
@@ -602,8 +603,8 @@ double frag_prod_monte (double * x, size_t dim, void * pars)  {
 	double photons_ff(int, int, double, double);
 	double kkp_ff(int, int, int, double, double);
 	void set_scales(double *, double *, void *);
-	double lhapdf(int , double, double);
-	double mod_pdf(int [], int, double , double);
+	//double lhapdf(int , double, double);
+	//double mod_pdf(int [], int, double , double);
 
 	// Declaration of variables //
 	double result;
@@ -658,14 +659,14 @@ double frag_prod_monte (double * x, size_t dim, void * pars)  {
 		uh=-xb*pJt*sqrts*exp(y);
 	
 		//pdf a
-		//pdfa=cteq5_pdf(curr_set.parton_a, cteq_table, xa, Qfac);
+		pdfa=cteq5_pdf(curr_set.parton_a, cteq_table, xa, Qfac);
 		//pdfa=lhapdf(curr_set.parton_a, xa, Qfac);
-		pdfa=mod_pdf(curr_set.beam_1, curr_set.parton_a, xa, Qfac);
+		//pdfa=mod_pdf(curr_set.beam_1, curr_set.parton_a, xa, Qfac);
 	
 		//pdf b
-		//pdfb=cteq5_pdf(curr_set.parton_b, cteq_table, xb, Qfac);
+		pdfb=cteq5_pdf(curr_set.parton_b, cteq_table, xb, Qfac);
 		//pdfb=lhapdf(curr_set.parton_b, xb, Qfac);
-		pdfb=mod_pdf(curr_set.beam_2, curr_set.parton_b, xb, Qfac);
+		//pdfb=mod_pdf(curr_set.beam_2, curr_set.parton_b, xb, Qfac);
 		
 		//if photon
 		if (10 == curr_set.part_type) {
@@ -811,8 +812,8 @@ double frag_prod_qag_sub (double xa, void * pars)  {
 	double cteq5_pdf(int, int, double, double);
 	double twotwocs(void *, double, double, double, double);
 	void set_scales(double *, double *, void *);
-	double lhapdf(int , double, double);
-	double mod_pdf(int [], int, double , double);
+	//double lhapdf(int , double, double);
+	//double mod_pdf(int [], int, double , double);
 
 	// Declaration of variables //
 	double result;
@@ -854,14 +855,14 @@ double frag_prod_qag_sub (double xa, void * pars)  {
 		uh=-xb*pJt*sqrts*exp(y);
 	
 		//pdf a
-		//pdfa=cteq5_pdf(curr_set.parton_a, cteq_table, xa, qfac);
+		pdfa=cteq5_pdf(curr_set.parton_a, cteq_table, xa, qfac);
 		//pdfa=lhapdf(curr_set.parton_a, xa, qfac);
-		pdfa=mod_pdf(curr_set.beam_1, curr_set.parton_a, xa, qfac);
+		//pdfa=mod_pdf(curr_set.beam_1, curr_set.parton_a, xa, qfac);
 	
 		//pdf b
-		//pdfb=cteq5_pdf(curr_set.parton_b, cteq_table, xb, qfac);
+		pdfb=cteq5_pdf(curr_set.parton_b, cteq_table, xb, qfac);
 		//pdfb=lhapdf(curr_set.parton_b, xb, qfac);
-		pdfb=mod_pdf(curr_set.beam_2, curr_set.parton_b, xb, qfac);
+		//pdfb=mod_pdf(curr_set.beam_2, curr_set.parton_b, xb, qfac);
 		
 		//parton-parton cs
 		partoncs=twotwocs(&curr_set, sh, th, uh, qren);

@@ -1,0 +1,5 @@
+Original from:
+https://www.physics.smu.edu/scalise/cteq/CTEQ5Table/
+
+Compile with:
+f77 -c --std=legacy

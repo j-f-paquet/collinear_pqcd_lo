@@ -2,7 +2,7 @@
 #include <iostream>
 #include <stdlib.h>
 
-#include "LHAPDF/LHAPDF.h"
+//#include "LHAPDF/LHAPDF.h"
 
 //p.d.f.
 
@@ -259,67 +259,67 @@ double photons_ff(int parton, int set, double x, double scale) {
 
 }
 
-double lhapdf(int parton, double x, double scale) {
-	
-	//Declaration of functions//
-	
-	//Declarations of variables//
-	double ffval;
-	int lhapdf_parton;
-	
-	//Initialisation of variables//
-	
-	//Core//
-	
-	//kkp_parton
-	switch(parton) {
-			
-		case -5:
-			lhapdf_parton=-5;
-			break;
-		case -4:
-			lhapdf_parton=-4;
-			break;
-		case -3:
-			lhapdf_parton=-3;
-			break;
-		case -2:
-			lhapdf_parton=-1;
-			break;
-		case -1:
-			lhapdf_parton=-2;
-			break;	
-		case 0:
-			lhapdf_parton=0;
-			break;
-		case 1:
-			lhapdf_parton=2;
-			break;
-		case 2:
-			lhapdf_parton=1;
-			break;
-		case 3:
-			lhapdf_parton=3;
-			break;
-		case 4:
-			lhapdf_parton=4;
-			break;
-		case 5:
-			lhapdf_parton=5;
-			break;
-
-		default:
-			std::cout << "Unknown parton in lhapdf(). Aborting...\n";
-			exit(1);
-			break;
-
-	}
-	
-	ffval=LHAPDF::xfx(x, scale, lhapdf_parton)/x;
-	
-	return ffval;
-
-}
+//double lhapdf(int parton, double x, double scale) {
+//	
+//	//Declaration of functions//
+//	
+//	//Declarations of variables//
+//	double ffval;
+//	int lhapdf_parton;
+//	
+//	//Initialisation of variables//
+//	
+//	//Core//
+//	
+//	//kkp_parton
+//	switch(parton) {
+//			
+//		case -5:
+//			lhapdf_parton=-5;
+//			break;
+//		case -4:
+//			lhapdf_parton=-4;
+//			break;
+//		case -3:
+//			lhapdf_parton=-3;
+//			break;
+//		case -2:
+//			lhapdf_parton=-1;
+//			break;
+//		case -1:
+//			lhapdf_parton=-2;
+//			break;	
+//		case 0:
+//			lhapdf_parton=0;
+//			break;
+//		case 1:
+//			lhapdf_parton=2;
+//			break;
+//		case 2:
+//			lhapdf_parton=1;
+//			break;
+//		case 3:
+//			lhapdf_parton=3;
+//			break;
+//		case 4:
+//			lhapdf_parton=4;
+//			break;
+//		case 5:
+//			lhapdf_parton=5;
+//			break;
+//
+//		default:
+//			std::cout << "Unknown parton in lhapdf(). Aborting...\n";
+//			exit(1);
+//			break;
+//
+//	}
+//	
+//	ffval=LHAPDF::xfx(x, scale, lhapdf_parton)/x;
+//	
+//	return ffval;
+//
+//}
 
 
 //There seem to be no equivalent to "call setlhaparm('EPS08')" in the C++ wrapper, 
@@ -339,68 +339,68 @@ double lhapdf(int parton, double x, double scale) {
 //              \ u_sea(proton)=ubar(proton)  [idem as above]
 //s(neutron)=s_sea(neutron)=s(proton), c(neutron)=c(proton), ...
 
-double mod_pdf(int beam[2], int parton, double x, double scale) {
-
-	//Declaration of functions//
-	
-	//Declarations of variables//
-	int nb_neutron, nb_proton,total;
-	double res, pdflist[13];
-	double tmp1,tmp2;
-	
-	//Initialisation of variables//
-	nb_proton=beam[0];
-	nb_neutron=beam[1];
-	total=nb_neutron+nb_proton;
-	
-	//Core//
-	
-	LHAPDF::xfxa(x, scale, total, pdflist);
-
-	switch(parton) {
-		
-		case -5:
-		case -4:
-		case -3:
-		case 0:
-		case 3:
-		case 4:
-		case 5:
-			res=pdflist[parton+6]/x;
-			break;
-		case -2:
-			//Note that LHAPDF uses 1 for down and 2 for up
-			tmp1=pdflist[-1+6]/x;
-			tmp2=pdflist[-2+6]/x;
-			//tmp2=pdflist[-1+6]/x;
-			res=nb_proton/double(total)*tmp1+nb_neutron/double(total)*tmp2;
-			break;
-		case -1:
-			tmp1=pdflist[-2+6]/x;
-			tmp2=pdflist[-1+6]/x;
-			//tmp2=pdflist[-2+6]/x;
-			res=nb_proton/double(total)*tmp1+nb_neutron/double(total)*tmp2;
-			break;	
-		case 1:
-			tmp1=pdflist[2+6]/x;
-			tmp2=pdflist[1+6]/x;
-			//tmp2=(pdflist[1+6]-pdflist[-1+6]+pdflist[-2+6])/x;
-			res=nb_proton/double(total)*tmp1+nb_neutron/double(total)*tmp2;
-			break;
-		case 2:
-			tmp1=pdflist[1+6]/x;
-			tmp2=pdflist[2+6]/x;
-			//tmp2=(pdflist[2+6]-pdflist[-2+6]+pdflist[-1+6])/x;
-			res=nb_proton/double(total)*tmp1+nb_neutron/double(total)*tmp2;
-			break;
-			
-		default:
-			std::cout << "Unknown parton in mod_pdf(). Aborting...\n";
-			exit(1);
-			break;
-
-	}
-	
-	return res;
-	
-}
+//double mod_pdf(int beam[2], int parton, double x, double scale) {
+//
+//	//Declaration of functions//
+//	
+//	//Declarations of variables//
+//	int nb_neutron, nb_proton,total;
+//	double res, pdflist[13];
+//	double tmp1,tmp2;
+//	
+//	//Initialisation of variables//
+//	nb_proton=beam[0];
+//	nb_neutron=beam[1];
+//	total=nb_neutron+nb_proton;
+//	
+//	//Core//
+//	
+//	LHAPDF::xfxa(x, scale, total, pdflist);
+//
+//	switch(parton) {
+//		
+//		case -5:
+//		case -4:
+//		case -3:
+//		case 0:
+//		case 3:
+//		case 4:
+//		case 5:
+//			res=pdflist[parton+6]/x;
+//			break;
+//		case -2:
+//			//Note that LHAPDF uses 1 for down and 2 for up
+//			tmp1=pdflist[-1+6]/x;
+//			tmp2=pdflist[-2+6]/x;
+//			//tmp2=pdflist[-1+6]/x;
+//			res=nb_proton/double(total)*tmp1+nb_neutron/double(total)*tmp2;
+//			break;
+//		case -1:
+//			tmp1=pdflist[-2+6]/x;
+//			tmp2=pdflist[-1+6]/x;
+//			//tmp2=pdflist[-2+6]/x;
+//			res=nb_proton/double(total)*tmp1+nb_neutron/double(total)*tmp2;
+//			break;	
+//		case 1:
+//			tmp1=pdflist[2+6]/x;
+//			tmp2=pdflist[1+6]/x;
+//			//tmp2=(pdflist[1+6]-pdflist[-1+6]+pdflist[-2+6])/x;
+//			res=nb_proton/double(total)*tmp1+nb_neutron/double(total)*tmp2;
+//			break;
+//		case 2:
+//			tmp1=pdflist[1+6]/x;
+//			tmp2=pdflist[2+6]/x;
+//			//tmp2=(pdflist[2+6]-pdflist[-2+6]+pdflist[-1+6])/x;
+//			res=nb_proton/double(total)*tmp1+nb_neutron/double(total)*tmp2;
+//			break;
+//			
+//		default:
+//			std::cout << "Unknown parton in mod_pdf(). Aborting...\n";
+//			exit(1);
+//			break;
+//
+//	}
+//	
+//	return res;
+//	
+//}
