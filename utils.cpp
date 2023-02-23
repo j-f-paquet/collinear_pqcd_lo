@@ -145,6 +145,10 @@ void save_info(ofstream * file, params * pars) {
 
 }
 
+double unit_fct(double q) {
+        return 1.0;
+}
+
 double kdirect(double q) {
 
 	//Declaration of functions//

@@ -23,6 +23,7 @@ int main(int argc, char *argv[]) {
 	double partprod_pp(void *);
 	double kfrag(double);
 	double kdirect(double);
+	double unit_fct(double);
 	void save_info(ofstream *, params *);
 	//double geom_factor(params *);
 
@@ -114,7 +115,7 @@ int main(int argc, char *argv[]) {
 		pars.Qren_norm=1.0/sqrt(2.0);
 
 		//K factor
-		pars.Kfunct=kdirect;
+		pars.Kfunct=unit_fct;
 		
 		//
 		pars.maxiter=5000;
@@ -138,7 +139,7 @@ int main(int argc, char *argv[]) {
 		//LHAPDF::initPDFByName(pars.pdf_name,1);
 		
 		//
-		for(int i=10;i<=20;i++) {
+		for(int i=10;i<=40;i++) {
 
 			pars.pJt=i*.5;
 
