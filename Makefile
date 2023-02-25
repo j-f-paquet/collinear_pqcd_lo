@@ -4,8 +4,8 @@ PHOTON_FF_LIB_DIR=./photon_ff_fnal/
 
 CTEQ5_LIB_DIR=./Ctq5Pdf/
 
-ghloprod : functions.o expfunctions.o utils.o
-	g++ -Wall -o ghloprod -g -pg ${KKP_LIB_DIR}/kkp.o ${CTEQ5_LIB_DIR}//Ctq5Pdf.o ${PHOTON_FF_LIB_DIR}//fonfra_inter2.o ${PHOTON_FF_LIB_DIR}//distribPert.o ${PHOTON_FF_LIB_DIR}//distribNonPert_setI.o ${PHOTON_FF_LIB_DIR}//distribNonPert_setII.o  ${PHOTON_FF_LIB_DIR}//locate.o ${PHOTON_FF_LIB_DIR}//polin2.o ${PHOTON_FF_LIB_DIR}//polint.o utils.o functions.o expfunctions.o ghloprod.cpp -lgsl -lblas64 -lm -lgfortran
+ghloprod : functions.o expfunctions.o utils.o ghloprod.cpp
+	g++ -Wall -o ghloprod -g3 -pg ${KKP_LIB_DIR}/kkp.o ${CTEQ5_LIB_DIR}//Ctq5Pdf.o ${PHOTON_FF_LIB_DIR}//fonfra_inter2.o ${PHOTON_FF_LIB_DIR}//distribPert.o ${PHOTON_FF_LIB_DIR}//distribNonPert_setI.o ${PHOTON_FF_LIB_DIR}//distribNonPert_setII.o  ${PHOTON_FF_LIB_DIR}//locate.o ${PHOTON_FF_LIB_DIR}//polin2.o ${PHOTON_FF_LIB_DIR}//polint.o utils.o functions.o expfunctions.o ghloprod.cpp -lgsl -lblas64 -lm -lgfortran
 
 expfunctions.o : expfunctions.cpp
 	g++ -c -g -pg expfunctions.cpp 
