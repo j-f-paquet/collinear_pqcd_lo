@@ -99,7 +99,7 @@ int main(int argc, char *argv[]) {
 	//for frag photon, part_type=10 and source=1
 	//for frag pions, part_type=5 and source=1
 	//I suspect that other combinations give meaningless results
-		
+	/*	
 	//direct prod (source=0)
 	
 		//particle type
@@ -128,8 +128,8 @@ int main(int argc, char *argv[]) {
 		pars.relerr=1e-3;
 		
 		//
-		pars.cteq_table=1;
-		strcpy(pars.pdf_name,"cteq5l.LHgrid");
+		pars.cteq_table=3;
+		//strcpy(pars.pdf_name,"cteq5l.LHgrid");
 		
 		//save params to file
 		save_info(&outfile,&pars);
@@ -154,10 +154,10 @@ int main(int argc, char *argv[]) {
 			outfile << pars.pJt << "\t" << res << "\n";
 
 		}
-	
+	*/
 	//frag prod (source=1)
 	
-	/*
+	
 		//particle type
 		pars.part_type=10;
 
@@ -171,7 +171,7 @@ int main(int argc, char *argv[]) {
 		pars.Qren_norm=1.0/sqrt(2.0);
 
 		//K factor
-		pars.Kfunct=kfrag;
+		pars.Kfunct=unit_fct;
 		
 		//
 		pars.frag_int_method='q';
@@ -185,8 +185,8 @@ int main(int argc, char *argv[]) {
 		pars.relerr=1e-3;
 		
 		//
-		//pars.cteq_table=3;
-		strcpy(pars.pdf_name,"cteq5l.LHgrid");
+		pars.cteq_table=3;
+		//strcpy(pars.pdf_name,"cteq5l.LHgrid");
 		pars.kkp_order=0;
 		pars.photon_set=1;
 		
@@ -194,18 +194,22 @@ int main(int argc, char *argv[]) {
 		save_info(&outfile,&pars);
 		outfile << "#\n#pT\tcs\n";
 		
-		LHAPDF::initPDFByName(pars.pdf_name,1);
+		//LHAPDF::initPDFByName(pars.pdf_name,1);
 		
 		//
-		for(int i=2;i<=2;i++) {
+		for(int i=10;i<=40;i++) {
 			
-			pars.pHt=i*5.0;
+			pars.pHt=i*0.5;
 
-			outfile << pars.pHt << "\t" << partprod_pp(&pars) << "\n";
+                        res=partprod_pp(&pars);
+
+                        std::cout << "Computing fragmentation photons with p_T=" << pars.pHt << "GeV\n";
+
+			outfile << pars.pHt << "\t" << res << "\n";
 
 		}	
 	
-	*/
+	
 	outfile.close();
 		
 }

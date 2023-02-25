@@ -123,8 +123,8 @@ void save_info(ofstream * file, params * pars) {
 	*file << "#Rel err: " << pars->relerr << "\n";
 	
 	//
-	*file << "### Exp functions ### \n";
-	*file << "#PDF name: " << pars->pdf_name << "\n";
+	//*file << "### Exp functions ### \n";
+	//*file << "#PDF name: " << pars->pdf_name << "\n";
 
 	if (1 == pars->source) {
 		
